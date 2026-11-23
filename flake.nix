@@ -6,7 +6,7 @@
   outputs = { nixpkgs, ... } @ inputs:
   let
     packageName = "cc3dsfs-wrapped";
-    version = "1.3.0.1";
+    versionTag = "1.3.0.1";
     forSupportedSystems = nixpkgs.lib.genAttrs [
       "x86_64-linux" # Only supporting one system, because of this BellSoft Liberica thing
       "i686-linux"
@@ -27,7 +27,7 @@
         cc3dsfs-src = forSupportedPackages.${system}.fetchFromGitHub {
           owner = "Lorenzooone";
           repo = "cc3dsfs";
-          tag = version;
+          tag = versionTag;
           sha256 = "sha256-9oSliq5QORrFR+OC082yAUOHUadUZIwDqHMGygaHQKQ=";
         };
         sfml-src = forSupportedPackages.${system}.fetchFromGitHub {
@@ -52,7 +52,7 @@
       {
       default = forSupportedPackages.${system}.stdenv.mkDerivation (finalAttrs: {
         pname = packageName;
-        version = version;
+        version = versionTag;
         src = cc3dsfs-src;
 
         desktopItems = [(
