@@ -57,12 +57,12 @@
         nativeBuildInputs = with forSupportedPackages.${system}.pkgs; [
           makeWrapper
           cmake
+          libgcc
+          git
           copyDesktopItems
         ];
 
         buildInputs = with forSupportedPackages.${system}.pkgs; [
-          libgcc
-          git
           libxrandr.dev
           libxcursor.dev
           libgudev.dev
