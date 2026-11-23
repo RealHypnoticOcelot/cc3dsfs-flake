@@ -1,37 +1,5 @@
 {
   "nodes": {
-    "cc3dsfs-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1789955354,
-        "narHash": "sha256-AB109sYRSm5XEmye6uncR4SWWbcQtCKbDqYNY5+C8rM=",
-        "owner": "Lorenzooone",
-        "repo": "cc3dsfs",
-        "rev": "6c039255a32970ac77b16ae5d8ef52d44464ede5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Lorenzooone",
-        "repo": "cc3dsfs",
-        "type": "github"
-      }
-    },
-    "libusb-cmake": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1784403424,
-        "narHash": "sha256-cXbZdtKUar+7SIYbnCUn1TZeg2cNsiw4WWHNUYe4vtI=",
-        "owner": "libusb",
-        "repo": "libusb-cmake",
-        "rev": "bea6567b63796ab27c1c33257d230284fb2d8316",
-        "type": "github"
-      },
-      "original": {
-        "owner": "libusb",
-        "repo": "libusb-cmake",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1795234589,
@@ -50,43 +18,7 @@
     },
     "root": {
       "inputs": {
-        "cc3dsfs-src": "cc3dsfs-src",
-        "libusb-cmake": "libusb-cmake",
-        "nixpkgs": "nixpkgs",
-        "sfml": "sfml",
-        "sheenbidi": "sheenbidi"
-      }
-    },
-    "sfml": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1794581678,
-        "narHash": "sha256-UQutuHyjytM+J1w1n5xkOG2U4N0XfISlCz2hkHYJPZM=",
-        "owner": "SFML",
-        "repo": "SFML",
-        "rev": "f5887b46307bdacb451ee6fd79349bbb8a79eaeb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "SFML",
-        "repo": "SFML",
-        "type": "github"
-      }
-    },
-    "sheenbidi": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1793260601,
-        "narHash": "sha256-D5GbFbZOUaTsm3g5oZkGmDbpHTG3c5ZigOaPtuwxLHY=",
-        "owner": "Tehreer",
-        "repo": "SheenBidi",
-        "rev": "67b6f9d1489fb9222a9f46bba12649d4e7e3bfef",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Tehreer",
-        "repo": "SheenBidi",
-        "type": "github"
+        "nixpkgs": "nixpkgs"
       }
     }
   },

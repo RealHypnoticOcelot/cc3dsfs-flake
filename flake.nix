@@ -1,27 +1,12 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    cc3dsfs-src = {
-      url = "github:Lorenzooone/cc3dsfs";
-      flake = false;
-    };
-    sfml = {
-      url = "github:SFML/SFML";
-      flake = false;
-    };
-    libusb-cmake = {
-      url = "github:libusb/libusb-cmake";
-      flake = false;
-    };
-    sheenbidi = {
-      url = "github:Tehreer/SheenBidi";
-      flake = false;
-    };
   };
 
-  outputs = { nixpkgs, cc3dsfs-src, sfml, libusb-cmake, sheenbidi, ... } @ inputs:
+  outputs = { nixpkgs, ... } @ inputs:
   let
     packageName = "cc3dsfs-wrapped";
+    version = "1.3.0.1";
     forSupportedSystems = nixpkgs.lib.genAttrs [
       "x86_64-linux" # Only supporting one system, because of this BellSoft Liberica thing
       "i686-linux"
@@ -38,10 +23,36 @@
   in
   {
     packages = forSupportedSystems (system:
+      let
+        cc3dsfs-src = forSupportedPackages.${system}.fetchFromGitHub {
+          owner = "Lorenzooone";
+          repo = "cc3dsfs";
+          tag = version;
+          sha256 = "sha256-9oSliq5QORrFR+OC082yAUOHUadUZIwDqHMGygaHQKQ=";
+        };
+        sfml-src = forSupportedPackages.${system}.fetchFromGitHub {
+          owner = "SFML";
+          repo = "SFML";
+          tag = "3.1.0";
+          sha256 = "sha256-DNtOFeabU3yY1AoNS2kKZZAKdYNgPNkqG32PhY6YBDY=";
+        };
+        libusb-cmake-src = forSupportedPackages.${system}.fetchFromGitHub {
+          owner = "libusb";
+          repo = "libusb-cmake";
+          tag = "v1.0.30-0";
+          sha256 = "sha256-okywuaQGmVbMu1u/9fwX1UrhiT/6maPYOB/1HypjimY=";
+        };
+        sheenbidi-src = forSupportedPackages.${system}.fetchFromGitHub {
+          owner = "Tehreer";
+          repo = "SheenBidi";
+          tag = "v3.0.0";
+          sha256 = "sha256-e/24MlRX+93b34qD2V1+2XVhMh4WEy2qvt9Rgvybwxs=";
+        };
+      in
       {
       default = forSupportedPackages.${system}.stdenv.mkDerivation (finalAttrs: {
         pname = packageName;
-        version = "1.3.0.2M";
+        version = version;
         src = cc3dsfs-src;
 
         desktopItems = [(
@@ -80,9 +91,9 @@
 
         cmakeFlags = [
           "-DCMAKE_BUILD_TYPE=Release"
-          "-DFETCHCONTENT_SOURCE_DIR_SFML=${sfml}"
-          "-DFETCHCONTENT_SOURCE_DIR_LIBUSB=${libusb-cmake}"
-          "-DFETCHCONTENT_SOURCE_DIR_SHEENBIDI=${sheenbidi}"
+          "-DFETCHCONTENT_SOURCE_DIR_SFML=${sfml-src}"
+          "-DFETCHCONTENT_SOURCE_DIR_LIBUSB=${libusb-cmake-src}"
+          "-DFETCHCONTENT_SOURCE_DIR_SHEENBIDI=${sheenbidi-src}"
         ];
 
         configPhase = ''
