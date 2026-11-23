@@ -75,7 +75,6 @@
           harfbuzz.dev
           xorg-server.dev
           libxi.dev
-          libpulseaudio
         ];
 
 
