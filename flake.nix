@@ -21,7 +21,7 @@
 
   outputs = { nixpkgs, cc3dsfs-src, sfml, libusb-cmake, sheenbidi, ... } @ inputs:
   let
-    packageName = "cc3dsfs";
+    packageName = "cc3dsfs-wrapped";
     forSupportedSystems = nixpkgs.lib.genAttrs [
       "x86_64-linux" # Only supporting one system, because of this BellSoft Liberica thing
       "i686-linux"
@@ -75,6 +75,7 @@
           harfbuzz.dev
           xorg-server.dev
           libxi.dev
+          libpulseaudio
         ];
 
 
@@ -94,10 +95,17 @@
         '';
 
         installPhase = ''
+          runHook preInstall
+
           mkdir -p $out/bin
-          install -Dm755 bin/cc3dsfs $out/bin/
+          cp bin/cc3dsfs $out/bin/cc3dsfs
+          makeWrapper $out/bin/cc3dsfs $out/bin/${packageName} \
+            --prefix LD_LIBRARY_PATH : ${forSupportedPackages.${system}.lib.makeLibraryPath [ forSupportedPackages.${system}.pkgs.libpulseaudio ]}
+
           mkdir -p $out/lib/udev/rules.d
           cp ../usb_rules/*.rules $out/lib/udev/rules.d/
+
+          runHook postInstall
         '';
         });
       }
